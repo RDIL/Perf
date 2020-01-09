@@ -3,6 +3,9 @@
 import click
 import sys
 from .parser import read_file
+from os import listdir
+from os.path import isfile
+from .util import note_errors_present, note_errors
 
 
 @click.command()
@@ -25,18 +28,25 @@ def check(*args, **kwargs):
     if not check_dir and not check_file:
         print("Error: nothing to check! Use pyperf --help for details.")
         sys.exit(1)
-    issues = read_file(kwargs.get("file"))
+
     click.clear()
-    if issues is not None and len(issues) > 0:
-        click.secho(
-            f"Issues found ({kwargs.get('file').name}):",
-            fg="bright_red",
-            bold=True
-        )
-        for issue in issues:
-            click.secho(f"• {issue}", fg="yellow")
+    if check_file:
+        issues = read_file(kwargs.get("file"))
+
+        if issues is not None and len(issues) > 0:
+            note_errors_present(kwargs.get("file").name)
+            note_errors(issues)
+            sys.exit(1)
     else:
-        click.secho("Looks good!", fg="bright_green")
+        for file in listdir(kwargs.get("directory")):
+            if isfile(file):
+                issues = read_file(open(file, "r"))
+
+                if issues is not None and len(issues) > 0:
+                    note_errors_present(file)
+                    note_errors(issues)
+                    sys.exit(1)
+    click.secho("Looks good!", fg="bright_green")
 
 
 check()
