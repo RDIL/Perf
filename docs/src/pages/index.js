@@ -72,7 +72,7 @@ export default () => {
                 'button button--outline button--secondary button--lg',
                 styles.getStarted,
               )}
-              to={useBaseUrl('docs/doc1')}
+              to={useBaseUrl('docs/intro')}
             >
               Get Started
             </Link>
