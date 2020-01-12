@@ -58,9 +58,9 @@ module.exports = {
         },
         theme: {
           customCss: require.resolve('./src/home/banner.css'),
-        },
-      },
-    ],
+        }
+      }
+    ]
   ],
   plugins: [
     '@docusaurus/plugin-sitemap',
@@ -69,5 +69,5 @@ module.exports = {
       changefreq: 'daily',
       priority: 0.5,
     },
-  ],
+  ]
 }

@@ -46,7 +46,7 @@ def check(*args, **kwargs):
                     note_errors_present(file)
                     note_errors(issues)
                     sys.exit(1)
-    click.secho("Looks good!", fg="bright_green")
+    click.secho("Everything looks good!", fg="bright_green")
 
 
 check()

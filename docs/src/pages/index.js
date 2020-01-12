@@ -9,7 +9,7 @@ import styles from '../home/styles.module.css';
 const features = [
   {
     title: <>Easy to Use</>,
-    imageUrl: 'img/undraw_docusaurus_mountain.svg',
+    imageUrl: 'img/check.png',
     description: (
       <>
         PyPerf is designed to be easily installed and
@@ -19,7 +19,7 @@ const features = [
   },
   {
     title: <>Focus on What Matters</>,
-    imageUrl: 'img/undraw_docusaurus_tree.svg',
+    imageUrl: 'img/python.svg',
     description: (
       <>
         Write code at your own pace, and
@@ -29,7 +29,7 @@ const features = [
   },
   {
     title: <>Open Source</>,
-    imageUrl: 'img/undraw_docusaurus_react.svg',
+    imageUrl: 'img/git.svg',
     description: (
       <>
         Extend, change, and help PyPerf by sending us a PR on GitHub! 
@@ -44,7 +44,7 @@ function Feature({imageUrl, title, description}) {
     <div className={classnames('col col--4', styles.feature)}>
       {imgUrl && (
         <div className="text--center">
-          <img className={styles.featureImage} src={imgUrl} alt={title} />
+          <img className={styles.featureImage} src={imgUrl} alt={title} width={200} height={200} />
         </div>
       )}
       <h3>{title}</h3>
