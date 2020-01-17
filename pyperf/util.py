@@ -3,11 +3,7 @@ import sys
 
 
 def note_errors_present(file):
-    click.secho(
-        f"Issues found ({file}):",
-        fg="bright_red",
-        bold=True
-    )
+    click.secho(f"Issues found ({file}):", fg="bright_red", bold=True)
 
 
 def note_errors(issues):

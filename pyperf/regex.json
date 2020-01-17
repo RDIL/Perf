@@ -1,5 +1,5 @@
 {
     "overlapChecking": ".*for (?P<first>.*).*:\n.*for (?P<second>.*).*\n.*if.*((?P=first)|(?P=second)).*(is|==).*((?P=second)|(?P=second)):.*",
     "whileTrue": ".*while (T|t)rue:.*",
-    "plusEquals": ".*\".*\".*\\+=.*\".*\".*$"
+    "plusEquals": ".*(?P<varname>.*).*\\+=.*\".*\".*$"
 }

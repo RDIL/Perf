@@ -2,7 +2,8 @@ helloworld = "\\o/"  # nice little wave
 
 print("hi")
 
-myvar = "hello" += "world"
+myvar = ""
+myvar += "hi world"
 
 
 def helloworld2():
