@@ -12,5 +12,7 @@ setuptools.setup(
         pyperf=pyperf:check
     ''',
     author="Reece Dunham",
-    author_email="me@rdil.rocks"
+    author_email="me@rdil.rocks",
+    zip_safe=False,
+    include_package_data=True
 )

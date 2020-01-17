@@ -8,7 +8,7 @@ import json
 def load_regex():
     return json.loads(
         open(
-            os.path.abspath(os.path.dirname(__file__)) + "regex.json",
+            os.path.abspath(os.path.dirname(__file__)) + "/regex.json",
             "r"
         ).read()
     )
@@ -66,5 +66,5 @@ def error_template(lineno, issue):
         lineno
     ).join([
         "Line ",
-        f" {issue}"
+        " " + issue
     ])
