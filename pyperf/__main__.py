@@ -19,7 +19,7 @@ from .util import note_errors_present, note_errors
 @click.option(
     "-f", "--file", help="Single file to check.", type=click.File("r")
 )
-@click.version_option(version="0.0.1")
+@click.version_option(version="0.1.0")
 def check(*args, **kwargs):
     """Check the requested files."""
 
@@ -31,6 +31,13 @@ def check(*args, **kwargs):
         sys.exit(1)
 
     click.clear()
+
+    divider = area4.make_div("=", start=">", end="<", length=10)
+
+    click.secho(divider, fg="blue")
+    click.secho("  PyPerf  ", bold=True)
+    click.secho(divider, fg="blue")
+    click.echo()
 
     if check_file:
         issues = read_file(kwargs.get("file"))

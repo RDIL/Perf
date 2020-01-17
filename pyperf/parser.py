@@ -44,10 +44,10 @@ def read_file(file):
                 )
             )
 
-        if import_count >= 15:
-            issues.append(
-                error_template("has more then 15 imports (adds overhead)")
-            )
+    if import_count >= 15:
+        issues.append(
+            error_template("has more then 15 imports (adds overhead)")
+        )
 
     # multiline block processing
     lineblock = "\n".join(lines)
