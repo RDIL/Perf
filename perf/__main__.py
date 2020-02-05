@@ -19,9 +19,7 @@ from .util import note_errors_present, note_errors
 @click.option(
     "-f", "--file", help="Single file to check.", type=click.File("r")
 )
-@click.version_option(
-    version="0.1.0"
-)
+@click.version_option(version="0.1.0")
 def check(*args, **kwargs):
     """Check the requested files."""
 
@@ -37,7 +35,7 @@ def check(*args, **kwargs):
     divider = area4.make_div("=", start=">", end="<", length=10)
 
     click.secho(divider, fg="blue")
-    click.secho("   Perf  ", bold=True)
+    click.secho("   Perf   ", bold=True)
     click.secho(divider, fg="blue")
     click.echo()
 
