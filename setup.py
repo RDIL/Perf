@@ -1,7 +1,7 @@
 import setuptools
 
 setuptools.setup(
-    name='pyperf',
+    name='Perf',
     version='0.0.1',
     install_requires=[
         'Click==7.0',

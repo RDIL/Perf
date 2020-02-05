@@ -2,11 +2,12 @@ import re
 import functools
 import os
 import json
-from typing import Iterator, Match, Any, Optional
 
 
 @functools.lru_cache(maxsize=None)
 def load_regex():
+    """Loads the regex strings from the file into a dict."""
+
     return json.loads(
         open(
             os.path.abspath(os.path.dirname(__file__)) + "/regex.json", "r"
@@ -61,28 +62,33 @@ def read_file(file):
 
 
 def using_string_concatenation(line):
-    # type: (str) -> Optional[Match[Any]]
+    """Returns if the line is using the plusEquals pattern."""
+
     return re.match(re.compile(load_regex()["plusEquals"]), line)
 
 
 def using_slow_overlap_checking(lines):
-    # type: (str) -> Iterator[Match[Any]]
+    """Checks if the file is using the overlapChecking pattern."""
+
     matches = re.finditer(re.compile(load_regex()["overlapChecking"]), lines)
     return matches
 
 
 def using_whiletrue(line):
-    # type: (str) -> Optional[Match[Any]]
+    """Check if the file uses the whileTrue pattern."""
+
     return re.match(re.compile(load_regex()["whileTrue"]), line)
 
 
 def is_import(line):
-    # type: (str) -> bool
-    return "import " in line
+    """Returns if the line is an import."""
+
+    return "import " in line or "__import__" in line
 
 
 def error_template(issue, *args):
-    # type: (str, Optional[int]) -> str
+    """Formats an error reported by the tool."""
+
     if args is not None:
         return issue.capitalize()
     return str(args).join(["Line ", " " + issue])
