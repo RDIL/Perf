@@ -10,7 +10,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     entry_points='''
         [console_scripts]
-        pyperf=pyperf:check
+        perf=perf:check
     ''',
     author="Reece Dunham",
     author_email="me@rdil.rocks",
