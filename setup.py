@@ -6,7 +6,6 @@ setuptools.setup(
     install_requires=[
         'Click==7.0',
         'area4>=3.0.0',
-        'pyflakes==2.1.1',
     ],
     packages=setuptools.find_packages(),
     entry_points='''
