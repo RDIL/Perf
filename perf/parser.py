@@ -2,6 +2,7 @@ import re
 import functools
 import os
 import json
+from .vendor.shaded_pyflakes import api
 
 
 @functools.lru_cache(maxsize=None)
@@ -58,6 +59,8 @@ def read_file(file):
             error_template("Looks to be using overlap checking in a slow way")
         )
 
+    parse_shaded_pyflakes_results(api.check(lineblock, file.name), issues)
+
     return issues
 
 
@@ -86,9 +89,14 @@ def is_import(line):
     return "import " in line or "__import__" in line
 
 
-def error_template(issue, *args):
+def error_template(issue, lineno=0):
     """Formats an error reported by the tool."""
 
-    if args is not None:
-        return issue.capitalize()
-    return str(args).join(["Line ", " " + issue])
+    if lineno != 0:
+        return " ".join(["Line", str(lineno), issue])
+    return issue.capitalize()
+
+
+def parse_shaded_pyflakes_results(results, issues):
+    for result in results:
+        issues.append(error_template(str(result), result.lineno))
