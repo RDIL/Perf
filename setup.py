@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='Perf',
-    version='0.0.1',
+    version='0.1.0',
     install_requires=[
         'Click==7.0',
         'area4>=3.0.0',
