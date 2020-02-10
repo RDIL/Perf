@@ -1,3 +1,3 @@
-# Perf
+# Analyze-Perf
 
-CLI for finding Python performance issues.
+A CLI for finding Python performance issues.
