@@ -92,7 +92,7 @@ def is_import(line):
 def error_template(issue, lineno=0):
     """Formats an error reported by the tool."""
 
-    if lineno != 0:
+    if lineno != 0 and lineno is not None:
         return " ".join(["Line", str(lineno), issue])
     return issue.capitalize()
 

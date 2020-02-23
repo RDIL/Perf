@@ -27,7 +27,9 @@ def check(*args, **kwargs):
     check_dir = kwargs.get("directory") is not None
 
     if not check_dir and not check_file:
-        print("Error: nothing to check! Use `python3 -m perf --help`")
+        click.secho(
+            "Error: nothing to check! Use `python3 -m perf --help`", fg="red"
+        )
         sys.exit(1)
 
     click.clear()

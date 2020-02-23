@@ -31,17 +31,16 @@ def check(codeString, file_name):
             # Avoid using msg, since for the only known case, it contains a
             # bogus message that claims the encoding the file declared was
             # unknown.
-            return [messages.SourceDecodeError()]
+            return [messages.SourceDecodeError(0)]
         else:
-            return [messages.ParseSyntaxError()]
+            return [messages.ParseSyntaxError(0)]
     except Exception:
-        return [messages.SourceDecodeError()]
+        return [messages.SourceDecodeError(0)]
 
     # Okay, it's syntactically valid, now check it.
     file_tokens = checker.make_tokens(codeString)
     w = checker.Checker(
-        tree, file_tokens=file_tokens,
-        is__init__=file_name == "__init__.py"
+        tree, file_tokens=file_tokens, is__init__=file_name == "__init__.py"
     )
     w.messages.sort(key=lambda m: m.lineno)
     return w.messages
