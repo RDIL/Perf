@@ -40,7 +40,7 @@ def check(codeString, file_name):
     # Okay, it's syntactically valid, now check it.
     file_tokens = checker.make_tokens(codeString)
     w = checker.Checker(
-        tree, file_tokens=file_tokens, is__init__=file_name == "__init__.py"
+        tree, file_tokens=file_tokens, filename=file_name
     )
     w.messages.sort(key=lambda m: m.lineno)
     return w.messages

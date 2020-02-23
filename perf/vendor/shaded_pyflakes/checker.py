@@ -225,9 +225,7 @@ class Binding:
 
 
 class Definition(Binding):
-    """
-    A binding that defines a function or a class.
-    """
+    """A binding that defines a function or a class."""
 
 
 class Builtin(Definition):
@@ -243,9 +241,7 @@ class Builtin(Definition):
 
 
 class UnhandledKeyType:
-    """
-    A dictionary key of a type that we cannot or do not check for duplicates.
-    """
+    """A dictionary key of a type that we cannot or do not check for duplicates."""
 
 
 class VariableKey:
@@ -368,9 +364,7 @@ class FutureImportation(ImportationFrom):
 
 
 class Argument(Binding):
-    """
-    Represents binding a name as an argument.
-    """
+    """Represents binding a name as an argument."""
 
 
 class Assignment(Binding):
@@ -609,14 +603,14 @@ class Checker:
         builtins=None,
         withDoctest="PYFLAKES_DOCTEST" in os.environ,
         file_tokens=(),
-        is__init__=False,
+        filename="",
     ):
         self._nodeHandlers = {}
         self._deferredFunctions = []
         self._deferredAssignments = []
         self.deadScopes = []
         self.messages = []
-        self.is__init__ = is__init__
+        self.filename = filename
         if builtins:
             self.builtIns = self.builtIns.union(builtins)
         self.withDoctest = withDoctest
@@ -982,12 +976,6 @@ class Checker:
                     and name not in self.scope.globals
                 ):
                     # then it's probably a mistake
-                    self.report(
-                        messages.UndefinedLocal,
-                        scope[name].used[1],
-                        name,
-                        scope[name].source,
-                    )
                     break
 
         parent_stmt = self.getParent(node)
@@ -1033,32 +1021,7 @@ class Checker:
             except KeyError:
                 self.report(messages.UndefinedName, node, name)
 
-    def _handle_type_comments(self, node):
-        for (lineno, col_offset), comment in self._type_comments.get(node, ()):
-            comment = comment.split(":", 1)[1].strip()
-            func_match = TYPE_FUNC_RE.match(comment)
-            if func_match:
-                parts = (
-                    func_match.group(1).replace("*", ""),
-                    func_match.group(2).strip(),
-                )
-            else:
-                parts = (comment,)
-
-            for part in parts:
-                self.deferFunction(
-                    functools.partial(
-                        self.handleStringAnnotation,
-                        part,
-                        DummyNode(lineno, col_offset),
-                        lineno,
-                        col_offset,
-                        messages.CommentAnnotationSyntaxError,
-                    )
-                )
-
     def handleChildren(self, tree, omit=None):
-        self._handle_type_comments(tree)
         for node in iter_child_nodes(tree, omit=omit):
             self.handleNode(node, tree)
 
@@ -1185,19 +1148,7 @@ class Checker:
         self.handleNode(parsed_annotation, node)
 
     def handleAnnotation(self, annotation, node):
-        if isinstance(annotation, ast.Str):
-            # Defer handling forward annotation.
-            self.deferFunction(
-                functools.partial(
-                    self.handleStringAnnotation,
-                    annotation.s,
-                    node,
-                    annotation.lineno,
-                    annotation.col_offset,
-                    messages.ForwardAnnotationSyntaxError,
-                )
-            )
-        elif self.annotationsFutureEnabled:
+        if self.annotationsFutureEnabled:
             self.deferFunction(lambda: self.handleNode(annotation, node))
         else:
             self.handleNode(annotation, node)
