@@ -5,7 +5,7 @@ setuptools.setup(
     version='0.1.0',
     description="CLI tool to analyze Python files for performance issues!",
     install_requires=[
-        'Click==7.0',
+        'Click==7.1',
         'area4>=3.0.0',
     ],
     packages=setuptools.find_packages(),
